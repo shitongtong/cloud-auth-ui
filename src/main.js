@@ -7,6 +7,8 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import api from './http/index'
+import i18n from './i18n'
+
 
 Vue.config.productionTip = false
 // 使用element UI
@@ -16,6 +18,7 @@ Vue.use(api);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  i18n,  //将i18n注入到vue实例中
   router,
   components: { App },
   template: '<App/>'
