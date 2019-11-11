@@ -3,9 +3,9 @@ import Router from 'vue-router'
 import Login from '@/views/Login'
 import NotFound from '@/views/404'
 import Home from '@/views/Home'
-import Intro from '@/views/Intro/Intro'
+import Intro from '@/views/Intro'
 import User from '@/views/SysMng/User'
-import Org from '@/views/SysMng/Org'
+import Dept from '@/views/SysMng/Dept'
 import Role from '@/views/SysMng/Role'
 import Menu from '@/views/SysMng/Menu'
 import Log from '@/views/SysMng/Log'
@@ -21,7 +21,7 @@ const router = new Router({
       children: [
         { path: '', component: Intro, name: '系统介绍' },
         { path: '/user', component: User, name: '用户管理' },
-        { path: '/org', component: Org, name: '组织管理' },
+        { path: '/org', component: Dept, name: '组织管理' },
         { path: '/role', component: Role, name: '角色管理' },
         { path: '/menu', component: Menu, name: '菜单管理' },
         { path: '/log', component: Log, name: '日志管理' }
