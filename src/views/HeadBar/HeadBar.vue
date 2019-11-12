@@ -1,13 +1,26 @@
-<template> 
-  <div class="container" :class="this.$store.state.collapse?'menu-bar-collapse-width':'menu-bar-width'">
+<template>
+  <div
+    class="container"
+    :class="this.$store.state.app.collapse?'menu-bar-collapse-width':'menu-bar-width'"
+  >
     <!-- 导航菜单隐藏显示切换 -->
-    <span class="collapse-switcher" @click.prevent="collapse">
+    <span class="collapse-switcher" @click.prevent="collapse" :style="{'background':this.$store.state.app.onThemeChange}">
       <i class="el-icon-menu"></i>
     </span>
+    <!-- 导航收缩 -->
+    <!-- <span class="hamburger">
+      <hamburger :toggleClick="collapse" isActive="this.$store.state.collapse"></hamburger>
+    </span>-->
     <!-- 导航菜单 -->
     <span class="nav-bar">
-      <el-menu :default-active="activeIndex" class="el-menu-demo" text-color="#fff"
-          active-text-color="#ffd04b" mode="horizontal" @select="selectNavBar()">
+      <el-menu
+        :default-active="activeIndex"
+        class="el-menu-demo"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+        mode="horizontal"
+        @select="selectNavBar()"
+      >
         <el-menu-item index="1" @click="$router.push('/')">{{$t("common.home")}}</el-menu-item>
         <el-menu-item index="2">{{$t("common.doc")}}</el-menu-item>
         <el-menu-item index="3">{{$t("common.msgCenter")}}</el-menu-item>
@@ -15,12 +28,15 @@
     </span>
     <span class="tool-bar">
       <!-- 主题切换 -->
-      <ThemePicker class="theme-picker"></ThemePicker>
+      <ThemePicker class="theme-picker" @onThemeChange="onThemeChange"></ThemePicker>
       <!-- 语言切换 -->
-      <LangSelector class="lang-selector"></LangSelector>   
+      <LangSelector class="lang-selector"></LangSelector>
       <!-- 用户信息 -->
       <el-dropdown class="user-info-dropdown" trigger="hover">
-        <span class="el-dropdown-link"><img :src="this.userAvatar" /> {{username}}</span>
+        <span class="el-dropdown-link">
+          <img :src="this.userAvatar" />
+          {{username}}
+        </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>{{$t("common.myMsg")}}</el-dropdown-item>
           <el-dropdown-item>{{$t("common.config")}}</el-dropdown-item>
@@ -33,39 +49,45 @@
 
 <script>
 import mock from "@/mock/index.js";
-import ThemePicker from "@/components/ThemePicker"
-import LangSelector from "@/components/LangSelector"
+import ThemePicker from "@/components/ThemePicker";
+import LangSelector from "@/components/LangSelector";
+import Hamburger from "@/components/Hamburger";
 export default {
-  components:{
-        ThemePicker,
-        LangSelector
+  components: {
+    ThemePicker,
+    LangSelector,
+    Hamburger
   },
   data() {
     return {
       isCollapse: false,
       username: "admin",
       userAvatar: "",
-      activeIndex: '1'
+      activeIndex: "1"
     };
   },
   methods: {
     selectNavBar(key, keyPath) {
-      console.log(key, keyPath)
+      console.log(key, keyPath);
     },
     // 语言切换
     handleCommand(command) {
-      let array = command.split(':')
-      let lang = array[0] === '' ? 'zh_cn' : array[0]
-      let label = array[1]
-      document.getElementById("language").innerHTML = label
-      this.$i18n.locale = lang
+      let array = command.split(":");
+      let lang = array[0] === "" ? "zh_cn" : array[0];
+      let label = array[1];
+      document.getElementById("language").innerHTML = label;
+      this.$i18n.locale = lang;
     },
     //折叠导航栏
     collapse: function() {
       // this.isCollapse = !this.isCollapse;
       console.log(this.$store.state.collapse);
-      this.$store.commit('collapse');
+      this.$store.commit("collapse");
       console.log(this.$store.state.collapse);
+    },
+    //切换主题
+    onThemeChange: function(themeColor, oldThemeColor) {
+      this.$store.disPatch("onThemeChange", { themeColor, oldThemeColor });
     },
     //退出登录
     logout: function() {
@@ -73,12 +95,11 @@ export default {
       this.$confirm("确认退出吗?", "提示", {
         type: "warning"
       })
-      .then(() => {
-        sessionStorage.removeItem("user");
-        this.$router.push
-        ("/login");
-      })
-      .catch(() => {});
+        .then(() => {
+          sessionStorage.removeItem("user");
+          this.$router.push("/login");
+        })
+        .catch(() => {});
     }
   },
   mounted() {

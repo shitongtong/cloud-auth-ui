@@ -1,10 +1,11 @@
 <template>
-  <div class="container" :class="this.$store.state.collapse?'menu-bar-collapse-width':'menu-bar-width'">
-    <el-breadcrumb separator="/" class="breadcrumb">
+  <div class="container" :class="this.$store.state.app.collapse?'menu-bar-collapse-width':'menu-bar-width'">
+    <!-- <el-breadcrumb separator="/" class="breadcrumb">
       <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
         <a href="#" @click="$router.push('/')">{{ item.name }}</a>
       </el-breadcrumb-item>
-    </el-breadcrumb>
+    </el-breadcrumb> -->
+    <BreadCrumb></BreadCrumb>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -12,7 +13,11 @@
 </template>
 
 <script>
+import BreadCrumb from "@/components/BreadCrumb"
 export default {
+  components:{
+    BreadCrumb
+  },
   data() {
     return {
     };
