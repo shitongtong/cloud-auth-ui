@@ -1,11 +1,21 @@
 <template>
-    <div class="menu-bar-container" :class="this.$store.state.app.collapse?'menu-bar-collapse-width':'menu-bar-width'">
+  <div
+    class="menu-bar-container"
+    :class="this.$store.state.app.collapse?'menu-bar-collapse-width':'menu-bar-width'"
+  >
     <!-- logo -->
-    <div class="logo" >
-        <img :src="this.logo" /><div>{{this.$store.state.app.collapse?'':sysName}}</div>
+    <div class="logo">
+      <img :src="this.logo" />
+      <div>{{this.$store.state.app.collapse?'':sysName}}</div>
     </div>
     <!-- 导航菜单 -->
-    <el-menu default-active="1-1"  @open="handleopen" @close="handleclose" @select="handleselect" :collapse="this.$store.state.app.collapse">
+    <el-menu
+      default-active="1-1"
+      @open="handleopen"
+      @close="handleclose"
+      @select="handleselect"
+      :collapse="this.$store.state.app.collapse"
+    >
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
@@ -31,33 +41,63 @@
         <i class="el-icon-setting"></i>
         <span slot="title">{{$t("sys.nv4")}}</span>
       </el-menu-item>
+
+      <!-- 导航菜单树组件，动态加载菜单 -->
+      <!-- <menu-tree v-for="item in menuTree" :key="item.menuId" :menu="item"></menu-tree> -->
     </el-menu>
-    </div>
+  </div>
 </template>
 
 <script>
+import mock from "@/mock/index.js";
+import MenuTree from "@/components/MenuTree";
+import {mapState,mapMutations,mapAction } from 'vuex';
+
 export default {
+  components:{
+    MenuTree
+  },
   data() {
     return {
       isCollapse: false,
       sysName: "",
-      logo: "",
+      logo: ""
     };
   },
   methods: {
     handleopen() {
-      console.log('handleopen');
+      console.log("handleopen");
     },
     handleclose() {
-      console.log('handleclose');
+      console.log("handleclose");
     },
     handleselect(a, b) {
-      console.log('handleselect');
+      console.log("handleselect");
+    },
+    //加载导航菜单
+    findMenuTree() {
+      console.log("findMenuTree");
+      this.$api.menu.findMenuTree()
+        .then(res => {
+          this.$store.commit("setMenuTree", res, data);
+        })
+        .catch(function(res) {
+          alert(res);
+        });
     }
+  },
+  computed:{
+    ...mapState({
+      appName: state=>state.app.appName,
+      thmemColor: state=>state.app.thmemColor,
+      collapse: state=>state.app.collapse,
+      menuTree: state=>state.menu.menuTree
+    })
   },
   mounted() {
     this.sysName = "cloud-auth-ui";
     this.logo = require("@/assets/logo.png");
+    // this.findMenuTree();
   }
 };
 </script>
@@ -65,23 +105,23 @@ export default {
 <style scoped lang="scss">
 .menu-bar-container {
   .el-menu {
-    position:absolute;
+    position: absolute;
     top: 60px;
     bottom: 0px;
     text-align: left;
   }
   .logo {
-    position:absolute;
+    position: absolute;
     top: 0px;
-    height: 60px;   
+    height: 60px;
     line-height: 60px;
     background: #4b5f6e;
     img {
-        width: 40px;
-        height: 40px;
-        border-radius: 0px;
-        margin: 10px 10px 10px 10px;
-        float: left;
+      width: 40px;
+      height: 40px;
+      border-radius: 0px;
+      margin: 10px 10px 10px 10px;
+      float: left;
     }
     div {
       font-size: 22px;
