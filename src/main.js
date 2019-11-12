@@ -9,6 +9,7 @@ import ElementUI from 'element-ui'
 import '@/theme/theme-67da9a/index.css'
 import api from './http/index'
 import i18n from './i18n'
+import store from './store'
 
 
 Vue.config.productionTip = false
@@ -21,6 +22,7 @@ new Vue({
   el: '#app',
   i18n,  //将i18n注入到vue实例中
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

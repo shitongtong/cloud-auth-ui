@@ -1,5 +1,5 @@
 <template> 
-  <div class="container">
+  <div class="container" :class="this.$store.state.collapse?'menu-bar-collapse-width':'menu-bar-width'">
     <!-- 导航菜单隐藏显示切换 -->
     <span class="collapse-switcher" @click.prevent="collapse">
       <i class="el-icon-menu"></i>
@@ -62,7 +62,10 @@ export default {
     },
     //折叠导航栏
     collapse: function() {
-      this.isCollapse = !this.isCollapse;
+      // this.isCollapse = !this.isCollapse;
+      console.log(this.$store.state.collapse);
+      this.$store.commit('collapse');
+      console.log(this.$store.state.collapse);
     },
     //退出登录
     logout: function() {
@@ -139,6 +142,12 @@ export default {
         float: right;
       }
     }
+  }
+  .menu-bar-width {
+    left: 200px;
+  }
+  .menu-bar-collapse-width {
+    left: 65px;
   }
 }
 </style>
