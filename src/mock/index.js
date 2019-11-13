@@ -17,12 +17,14 @@ fnCreate(menu, true)
  * @param {*} mod 模块
  * @param {*} isOpen 是否开启?
  */
-function fnCreate (mod, isOpen = true) {
+function fnCreate(mod, isOpen = true) {
   if (isOpen) {
     for (var key in mod) {
       ((res) => {
         if (res.isOpen !== false) {
-          Mock.mock(new RegExp(res.url), res.type, (opts) => {
+          let baseUrl = "http://lcoalhost:8080/";
+          let url = baseUrl + res.url;
+          Mock.mock(new RegExp(baseUrl), res.type, (opts) => {
             opts['data'] = opts.body ? JSON.parse(opts.body) : null
             delete opts.body
             console.log('\n')
