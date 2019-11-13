@@ -5,6 +5,8 @@
         <h2 class="not-found-title">用户管理</h2>
         <p class="not-found-desc">这是用户管理页面</p>
         <el-button @click="$router.go(-1)">返回上一页</el-button>
+        <i class="iconmessagecenter-fill"></i>
+        <!-- <i class="fa fa-home fa-lg">图标库安装失败</i> -->
         <el-button type="primary" class="not-found-btn-gohome" @click="$router.push('/')">进入首页</el-button>
       </div>
     </div>

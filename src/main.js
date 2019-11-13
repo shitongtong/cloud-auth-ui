@@ -10,6 +10,8 @@ import '@/theme/theme-67da9a/index.css'
 import api from './http/index'
 import i18n from './i18n'
 import store from './store'
+// import 'font-awesome/css/font-awesome.min.css' //图标库安装失败
+import '@/assets/iconfont/iconfont.css'
 
 
 Vue.config.productionTip = false
