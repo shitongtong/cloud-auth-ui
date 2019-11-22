@@ -7,7 +7,6 @@
         "blog": "博客",
         "projectRepo": "项目",
         "myMsg": "我的消息",
-        "msgCenter": "消息中心",
         "config": "系统配置",           
         "backup": "备份",
         "restore": "还原",
@@ -32,7 +31,7 @@
     "sys": {
         "sysMng": "系统管理",
         "userMng": "用户管理",
-        "orgMng": "组织管理",
+        "deptMng": "机构管理",
         "roleMng": "角色管理",
         "menuMng": "菜单管理",
         "logMng": "日志管理",
